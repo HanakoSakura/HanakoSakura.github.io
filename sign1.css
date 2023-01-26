@@ -1,0 +1,17 @@
+.header {
+	color:#FFFFFF;
+	background-color:#FFB6C1;
+	position:fixed;
+	top:0px;
+	left:0px;
+	right:0px;
+	font-family:Papyrus;
+	margin: 0px;
+}
+
+.left {
+	background-color:#FFFFFF;
+	float:left;
+	border-style:dotted;
+	border-width:2px;
+}
