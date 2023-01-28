@@ -1,0 +1,39 @@
+.alone {
+	background-color: #F0F0FF;
+
+}
+
+.left {
+	background-color: #F0F0FF;
+	float: left;
+	width: 20%;
+	border-style: dotted;
+	border-width: 1px;
+	border-color: #ff8eebaf;
+}
+
+.main {
+	background-color:#F0F0FF;
+	float:right;
+	width:80%;
+}
+
+.s1 {
+	color: #ff8eebaf;
+	font-family: Consolas;
+}
+
+a.slink:link {
+	font-family: Consolas;
+	color: #6cdbffb2;
+}
+
+a.slink:visited {
+	font-family: Consolas;
+	color: #8ec8ffaf;
+}
+
+a.slink:hover{
+	font-family: Consolas;
+	color: #ff8ebbaf;
+}
