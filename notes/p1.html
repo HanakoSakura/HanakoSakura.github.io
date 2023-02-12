@@ -13,6 +13,61 @@
     <br />
     <p><a class="slink" href="p0.html">&lt;Back</a></p>
     <br />
+
+    <h1>#1 Add WAV head to PCM code (Virtual Singer Hanako Sakura Project,C language)</h1>
+    <p>First, get the file length.</p>
+    <pre>
+    // unsigned int i;
+	fseek(in, 0, SEEK_END);
+	i = ftell(in);
+	fseek(in, 0, SEEK_SET);
+    </pre>
+    <p>Write RIFF ID.</p>
+    <pre>
+    fwrite("RIFF", 1, 4, out);
+    </pre>
+    <p>The data length of RIFF block, that is, the WAV file size is reduced by 8.<br>
+    (That is, add "WAVE" to the length of all sub-blocks)<br>
+    <i>*SIGN is my customized sub-block, which is not actually required*</i><p>
+    <pre>
+    c = /*fmt*/(16 + 8) +/*data*/(8 + i) +/*Sign*/+(8 + sign_size) +/*WAVE*/4;
+    fwrite(&amp;c, 4, 1, out);
+    fwrite("WAVEfmt ", 1, 8, out);
+    </pre>
+    <p>Write fmt sub-blocks in sequence.</p>
+    <pre>
+        c = 16;
+	fwrite(&amp;c, 4, 1, out);
+
+	// Format
+	fwrite(&amp;AudioFormat, 2, 1, out);
+	fwrite(&amp;umChannels, 2, 1, out);
+	fwrite(&amp;SampleRate, 4, 1, out);
+	ByteRate = SampleRate * NumChannels * BitPerSample / 8;
+	fwrite(&amp;ByteRate, 4, 1, out);
+	BlockAlign = NumChannels * BitPerSample / 8;
+	fwrite(&amp;BlockAlign, 2, 1, out);
+	fwrite(&amp;BitPerSample, 2, 1, out);
+    </pre>
+    <p>Custom SIGN sub-block.</p>
+    <pre>
+    // Sign
+	fwrite("SIGN", 1, 4, out);
+	fwrite(&amp;sign_size, 4, 1, out);
+	fwrite(sign, 1, sign_size, out);
+    </pre>
+    <p>Data sub-block, namely voice data.</p>
+    </pre>
+    //Data
+	fwrite("data", 1, 4, out);
+	fwrite(&amp;i, 4, 1, out);
+
+	do {
+		c = fread(buffer, 1, 1048576, in);
+		fwrite(buffer, 1, c, out);
+	} while (c);
+    </pre>
+    <p>This is the core code of the whole module</p>
     
 </body>
 </html>
